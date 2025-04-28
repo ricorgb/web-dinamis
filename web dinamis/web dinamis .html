@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Dinamis Multimedia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .media-container {
+            margin-top: 20px;
+        }
+        img, audio, video {
+            max-width: 80%;
+            margin-top: 10px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Web Dinamis dengan Gambar, Audio, dan Video</h1>
+    
+    <div class="media-container">
+        <h2>Upload Gambar</h2>
+        <input type="file" id="imageUpload" accept="image/*">
+        <button onclick="uploadMedia('imageUpload', 'previewImage')">Upload</button>
+        <img id="previewImage" style="display:none;">
+    </div>
+    
+    <div class="media-container">
+        <h2>Upload Audio</h2>
+        <input type="file" id="audioUpload" accept="audio/*">
+        <button onclick="uploadMedia('audioUpload', 'previewAudio')">Upload</button>
+        <audio id="previewAudio" controls style="display:none;"></audio>
+    </div>
+    
+    <div class="media-container">
+        <h2>Upload Video</h2>
+        <input type="file" id="videoUpload" accept="video/*">
+        <button onclick="uploadMedia('videoUpload', 'previewVideo')">Upload</button>
+        <video id="previewVideo" controls style="display:none;"></video>
+    </div>
+    
+    <script>
+        function uploadMedia(inputId, previewId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                
+                reader.onload = function (e) {
+                    if (preview.tagName === 'IMG' || preview.tagName === 'AUDIO' || preview.tagName === 'VIDEO') {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                    }
+                };
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
